@@ -20,8 +20,13 @@ namespace Videoteka.Controllers.Api
         [HttpPost]
         public IHttpActionResult CreateNewRentals(RentalDto newRental)
         {
-            var customer = _context.Kupci.Single(
+            var customer = _context.Kupci.SingleOrDefault(
                 c => c.Id == newRental.KupacId);
+
+            if (customer == null)
+            {
+                return BadRequest("Nepostojeci Kupac.id.Kupac nije pronadjen.");
+            }
 
             var movies = _context.Films.Where(
                 m => newRental.FilmIds.Contains(m.Id)).ToList();
@@ -29,7 +34,7 @@ namespace Videoteka.Controllers.Api
             foreach (var movie in movies)
             {
                 if (movie.BrojDostupnih == 0)
-                    return BadRequest("Movie is not available.");
+                    return BadRequest("Film nije dostupan.");
 
                 movie.BrojDostupnih--;
 
