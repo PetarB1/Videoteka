@@ -31,6 +31,7 @@
         </label>
     </div>
     @Html.HiddenFor(k => k.Kupac.Id)
+    @Html.AntiForgeryToken();
     <button type="submit" class="btn btn-primary">Sačuvaj</button>
 
 }

@@ -33,6 +33,7 @@
         @Html.TextBoxFor(k => k.Film.BrojDostupnih, new { @class = "form-control" })
     </div>
     @Html.HiddenFor(k => k.Film.Id)
+    @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Sačuvaj</button>
 
 }

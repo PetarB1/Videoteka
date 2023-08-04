@@ -44,6 +44,7 @@ namespace Videoteka.Controllers
             return View("KupacForm",viewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Kupac kupac)
         {
 

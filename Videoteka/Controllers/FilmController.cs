@@ -42,6 +42,7 @@ namespace Videoteka.Controllers
             return View("FilmForm",viewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Film film)
         {
            
