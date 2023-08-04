@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Videoteka.Models.Kupac>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Kupci</h2>
+
+<p>
+    @Html.ActionLink("Novi Kupac", "New", "Kupac", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Prima Obavjestenja</th>
+            <th>Datum Rodjenja</th>
+            <th>Tip Clanstva</th>
+            <th>Tip Kupca</th>
+            <th></th>
+
+        </tr>
+    </thead>
+
+    @foreach (var customer in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@Html.ActionLink(customer.Ime, "Edit", new { id = customer.Id })</td>
+                <td>@(customer.PrimaObavjestenja ? "DA" : "NE")</td>
+                <td>@customer.DatumRodjenja.ToString("dd/MM/yyyy")</td>
+                <td>@customer.TipClanstva.Naziv</td>
+                <td>@customer.TipKupca.Naziv</td>
+                <td>
+                    @using (Html.BeginForm("Delete", "Kupac", new { id = customer.Id }, FormMethod.Post, new { onsubmit = "return confirm('Da li ste sigurni da želite da izbrišete kupca?');" }))
+                    {
+                        @Html.Hidden("id", customer.Id)
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    }
+                </td>
+            </tr>
+        </tbody>
+
+    }
+</table>

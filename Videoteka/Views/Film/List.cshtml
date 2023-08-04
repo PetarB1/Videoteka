@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Videoteka.Models.Film>
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Filmovi</h2>
+
+<p>
+    @Html.ActionLink("Novi film", "New", "Film", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Zanr</th>
+            <th></th>
+
+        </tr>
+    </thead>
+
+    @foreach (var film in Model)
+    {
+        <tbody>
+            <tr>
+                <td>@Html.ActionLink(film.Ime, "Edit", new { id = film.Id })</td>
+                <td>@film.Zanr.Ime</td>
+                <td>
+                    @using (Html.BeginForm("Delete", "Film", new { id = film.Id }, FormMethod.Post, new { onsubmit = "return confirm('Da li ste sigurni da želite da izbrišete film?');" }))
+                    {
+                        @Html.Hidden("id", film.Id)
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    }
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>

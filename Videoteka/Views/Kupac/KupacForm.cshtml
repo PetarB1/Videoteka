@@ -1,0 +1,38 @@
+﻿@model Videoteka.ViewModels.KupacViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New</h2>
+
+@using (Html.BeginForm("Save", "Kupac"))
+{
+    <div class="form-group">
+        @Html.LabelFor(k => k.Kupac.Ime)
+        @Html.TextBoxFor(k => k.Kupac.Ime, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(k => k.Kupac.DatumRodjenja)
+        @Html.TextBoxFor(k => k.Kupac.DatumRodjenja, "{0: d MMM yyyy}", new { @class = "form-control" })
+
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(k => k.Kupac.TipKupcaId)
+        @Html.DropDownListFor(k => k.Kupac.TipKupcaId, new SelectList(Model.TipKupcas, "Id", "Naziv"), "Izaberite tip kupca", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(k => k.Kupac.TipClanstvaId)
+        @Html.DropDownListFor(k => k.Kupac.TipClanstvaId, new SelectList(Model.TipClanstvas, "Id", "Naziv"), "Izaberite tip članstva", new { @class = "form-control" })
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(k => k.Kupac.PrimaObavjestenja) Primate obavjestenja?
+        </label>
+    </div>
+    @Html.HiddenFor(k => k.Kupac.Id)
+    <button type="submit" class="btn btn-primary">Sačuvaj</button>
+
+}
+
+
